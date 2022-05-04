@@ -43,9 +43,6 @@ PLANIFICACIÓN:
 DIVISIÓN DE TAREAS: 
 El proyecto se irá trabajando de manera conjunta para poder ayudarnos a resolver problemas que se vayan planteando.
 
-REPOSITORIO DE GITHUB: 
--https://github.com/MacaCalderini/GrupoC-Metodologia
-
 HORAS ESTIMADAS DE PROGRAMACIÓN: 
 -60-80 hrs.
 
