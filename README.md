@@ -51,6 +51,3 @@ HORAS ESTIMADAS DE PROGRAMACIÓN:
 
 CONEXIÓN LAN 
 Utilizaremos para la conexión el método sockets a través del puerto TCP/IP, creando dos módulos(cliente, servidor), en el cual se irá transfiriendo la información de los movimientos que se vayan realizando durante las partidas.
-DIAGRAMA EXPLICATIVO  
-En el siguiente diagrama podemos visualizar como es el funcionamiento de la conexión a realizar:
-
