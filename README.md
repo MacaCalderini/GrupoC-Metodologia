@@ -16,35 +16,35 @@ LENGUAJE:
 -Python
 
 LIBRERÍAS: 
--Pygame
--Socket
+- Pygame
+- Socket
 
 SISTEMA DE CONTROL DE VERSIONES: 
--Git
+- Git
 
 IDE: 
--Pycharm
+- Pycharm
 
 VERSIONES:
--Python 3.10.4
--Git 2.36.0
+- Python 3.10.4
+- Git 2.36.0
 
 PLANIFICACIÓN:
--Aprender reglas del juego de Damas.
--Análisis y relevamiento de las tecnologías a utilizar.
--Estudio del lenguaje, librería y sistema de versionado.
--Preparación y acondicionamiento del entorno de desarrollo (Descargas e instalación de programas/librerías requeridas).
--Diseño y Planificación de la lógica algorítmica.
--Diseñar boceto de la estructura y posibles funciones que se usarán.
--Codificación del programa por módulos(tablero, piezas, movimientos, reglas, main, fixture, menú,etc).
--Búsqueda exhaustiva de errores. Testing.
--Configuración del programa para uso en LAN.
+- Aprender reglas del juego de Damas.
+- Análisis y relevamiento de las tecnologías a utilizar.
+- Estudio del lenguaje, librería y sistema de versionado.
+- Preparación y acondicionamiento del entorno de desarrollo (Descargas e instalación de programas/librerías requeridas).
+- Diseño y Planificación de la lógica algorítmica.
+- Diseñar boceto de la estructura y posibles funciones que se usarán.
+- Codificación del programa por módulos(tablero, piezas, movimientos, reglas, main, fixture, menú,etc).
+- Búsqueda exhaustiva de errores. Testing.
+- Configuración del programa para uso en LAN.
 
 DIVISIÓN DE TAREAS: 
 El proyecto se irá trabajando de manera conjunta para poder ayudarnos a resolver problemas que se vayan planteando.
 
 HORAS ESTIMADAS DE PROGRAMACIÓN: 
--60-80 hrs.
+- 60-80 hrs.
 
 CONEXIÓN LAN 
 Utilizaremos para la conexión el método sockets a través del puerto TCP/IP, creando dos módulos(cliente, servidor), en el cual se irá transfiriendo la información de los movimientos que se vayan realizando durante las partidas.
