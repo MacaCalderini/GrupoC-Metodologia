@@ -49,4 +49,10 @@ HORAS ESTIMADAS DE PROGRAMACIÓN:
 CONEXIÓN LAN 
 Utilizaremos para la conexión el método sockets a través del puerto TCP/IP, creando dos módulos(cliente, servidor), en el cual se irá transfiriendo la información de los movimientos que se vayan realizando durante las partidas.
 
-//Agregar explicacion de Conexion LAN
+Un servidor levantara un socket, el cual es una combinación de dirección de red y puerto, bind agarra este socket y lo asocia con un recurso físico(tarjeta ethernet del equipo), es decir lo dispone hacia el exterior.
+
+Listen coloca estas construcciones en modo escucha de modo que el servidor esté atento a conexiones entrantes.
+
+Cliente levanta un socket y luego llama al método connect(el cual se bloquea), para intentar conectarse al servidor, cuando intenta establecer conexión, el método access y connect se desbloquean, una vez hecho esto se pueden hacer dos cosas,send y recv(enviar y recibir) desde el server al cliente o viceversa, el método recv estará bloqueado hasta recibir algo del otro extremo, utilizando send.
+
+![Conexion LAN](https://user-images.githubusercontent.com/103141738/168706927-9343c5cb-7140-4ff1-ad66-c534d71eef89.png)
