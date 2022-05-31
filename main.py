@@ -35,6 +35,6 @@ def main():
         game.update()
 
     pygame.quit()
-
+    print("    d ads ")
 
 main()
