@@ -1,4 +1,5 @@
 import pygame
+from constantes import *
 
 pygame.display.set_caption('Mundamitas')
 
