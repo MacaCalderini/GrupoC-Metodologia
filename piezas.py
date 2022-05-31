@@ -31,7 +31,7 @@ class Piezas:
 
     def mover(self, filas, columnas):
         self.filas = filas
-        self.columnas = columnas
+        self.columnas = columnass
 
         self.calcularPosicionX()
         self.calcularPosicionY()
