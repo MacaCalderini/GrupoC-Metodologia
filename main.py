@@ -1,5 +1,6 @@
 import pygame
 
+# coment
 pygame.display.set_caption('Mundamitas')
 
 FPS = 60
