@@ -32,3 +32,15 @@ class Tablero:
                         self.tablero[filas].append(0)
                 else:
                     self.tablero[filas].append(0)
+
+    def moverFicha(self, pieza, filas, columnas):
+        self.tablero[pieza.filas][pieza.columnas], self.tablero[filas][columnas] = self.tablero[filas][columnas], \
+                                                                                   self.tablero[pieza.filas][
+                                                                                       pieza.columnas]
+        pieza.moverFicha(filas, columnas)
+
+        if filas == FILAS - 1 or filas == 0:
+            if pieza.color == BLANCO:
+                self.blancoRey += 1
+            else:
+                self.violetaRey += 1
