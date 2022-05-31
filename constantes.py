@@ -3,8 +3,8 @@ import pygame
 FILAS, COLUMNAS = 8, 8
 ANCHO, ALTURA = 800, 800
 
-#Agregar corona
-#CORONA = corona.png
+
+CORONA = pygame.transform.scale(pygame.image.load("corona.png"), (44, 25))
 
 TAMANIOCUADRADOTOTAL = ANCHO//COLUMNAS
 
