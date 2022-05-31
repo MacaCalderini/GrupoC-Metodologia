@@ -1,49 +1,50 @@
 import pygame
+from constantes import TAMANIOCUADRADOTOTAL, GRIS, CORONA
 
-ANCHO, ALTURA = 800, 800
-FILAS, COLUMNAS = 6, 6
-
-TAMANIO_CUADRADO = ANCHO//COLUMNAS
-
-ROJO = (255, 105, 97)
-BLANCO = (224, 176, 255)
-NEGRO = (20, 20, 20)
-GRIS = (128, 128, 128)
-AZUL = (59, 131, 189)
-
-#CORONA = imagen de la corona(buscar)
 
 class Piezas:
     RELLENO = 15
     BORDE = 2
 
-    def __init__(self, fil, col, color):
-        self.fil = fil
-        self.col = col
-        self.color = color
-        self.king = False
+    def __init__(self, filas, columnas, color):
         self.x = 0
         self.y = 0
-        self.calc_pos()
 
-    def calc_pos(self):
-        self.x = TAMANIO_CUADRADO * self.col + TAMANIO_CUADRADO // 2
-        self.y = TAMANIO_CUADRADO * self.fil + TAMANIO_CUADRADO // 2
+        self.filas = filas
+        self.columnas = columnas
 
-    def make_king(self):
-        self.king = True
+        self.color = color
+        self.king = False
 
-    def draw(self, win):
-        radio = TAMANIO_CUADRADO // 2 - self.RELLENO
-        pygame.draw.circle(win, GRIS, (self.x, self.y), radio + self.BORDE)
-        pygame.draw.circle(win, self.color,(self.x, self.y), radio)
-        if self.king:
-            win.blit(CORONA, (self.x - CORONA.get_width()//2, self.y - CORONA.get_height()//2))
-
-    def move(self, fil, col):
-        self.fil = fil
-        self.col = col
-        self.calc_pos()
+        self.calcularPosicionX()
+        self.calcularPosicionY()
 
     def __repr__(self):
         return str(self.color)
+
+
+    def calcularPosicionX(self):
+        self.x = TAMANIOCUADRADOTOTAL * self.columnas + TAMANIOCUADRADOTOTAL // 2
+
+    def calcularPosicionY(self):
+        self.y = TAMANIOCUADRADOTOTAL * self.filas + TAMANIOCUADRADOTOTAL // 2
+
+    def mover(self, filas, columnas):
+        self.filas = filas
+        self.columnas = columnas
+
+        self.calcularPosicionX()
+        self.calcularPosicionY()
+
+
+    def rey(self):
+        self.rey = True
+
+    def dibujo(self, ganar):
+        radio = TAMANIOCUADRADOTOTAL // 2 - self.RELLENO
+
+        pygame.dibujo.circle(ganar, GRIS, (self.x, self.y), radio + self.BORDE)
+        pygame.dibujo.circle(ganar, self.color,(self.x, self.y), radio)
+
+        if self.king:
+            ganar.blit(CORONA, (self.x - CORONA.ancho()//2, self.y - CORONA.alto()//2))
