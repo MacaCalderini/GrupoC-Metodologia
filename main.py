@@ -1,8 +1,5 @@
 import pygame
 
-# comment
-#Prueba de Branches
-#Espero que funcione
 pygame.display.set_caption('Mundamitas')
 
 FPS = 60
