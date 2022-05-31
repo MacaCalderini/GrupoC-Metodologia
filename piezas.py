@@ -22,6 +22,7 @@ class Piezas:
     def __repr__(self):
         return str(self.color)
 
+
     def calcularPosicionX(self):
         self.x = TAMANIOCUADRADOTOTAL * self.columnas + TAMANIOCUADRADOTOTAL // 2
 
