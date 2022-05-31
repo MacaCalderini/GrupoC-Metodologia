@@ -35,5 +35,5 @@ def main():
         game.update()
 
     pygame.quit()
-    print(" s ")
+    print("  s   ")
 main()
