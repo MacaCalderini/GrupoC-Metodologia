@@ -1,12 +1,11 @@
 import pygame
-from constantes import FILAS, COLUMNAS, TAMANIOCUADRADOTOTAL, NEGRO, VIOLETA, BLANCO
 from piezas import Piezas
 
 
-class Tablero:
+class Tablero: #Esta clase tablero sirve para manejar los movimientos de las piezas, las elimina, las pone en pantalla, etc
     def init(self):
-        self.tablero = []
-        self.violetaIzq = self.blancoIzq = 12
+        self.tablero = [] #Esto es para guardar objetos en un lista
+        self.violetaIzq = self.blancoIzq = 12 #Cantidad de piezas en total
         self.violetaRey = self.blancoRey = 0
 
     def crearCuadrado(self, ganar):

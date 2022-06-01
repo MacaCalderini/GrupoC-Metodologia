@@ -1,27 +1,27 @@
 import pygame
 from tablero import Tablero
-from constantes import ROJO, BLANCO, AZUL, TAMANIOCUADRADOTOTAL
+from constantes import VIOLETA, BLANCO, AZUL, TAMANIOCUADRADOTOTAL
 
 
-class Juego:
+class Juego: #Aca se maneja el juego, la seleccion de piezas, a donde me puedo mover, de quien es el turno
     def __init__(self, ganar):
-        self._init()
+        self._init() #Sirve para el metodo de reinicio
         self.ganar = ganar
         
     def _init(self):
         self.selected = None
         self.tablero = Tablero()
-        self.turn = ROJO
+        self.turn = VIOLETA #De quien es el turno
         self.movimientosValidos = {}
 
     def dibujarMovimientos(self, movimientos):
-        for mover in movimientos:
+        for mover in movimientos: #Dibuja movimientos posibles
             filas, columnas = mover
             pygame.draw.circle(self.win, AZUL, (columnas * TAMANIOCUADRADOTOTAL +
                                                 TAMANIOCUADRADOTOTAL//2, filas * TAMANIOCUADRADOTOTAL +
                                                 TAMANIOCUADRADOTOTAL//2), 15)
 
-    def _mover(self, filas, columnas):
+    def _mover(self, filas, columnas): #Movimiento de las fichas y se llama al metodo cambioTurno una vez realizado el movimiento
         pieza = self.tablero.get_pieza(filas, columnas)
         if self.selected and pieza == 0 and (filas, columnas) in self.movimientosValidos:
             self.tablero.mover(self.selected, filas, columnas)
@@ -35,7 +35,7 @@ class Juego:
 
     def seleccionar(self, filas, columnas):
         if self.selected:
-            result = self._move(filas, columnas)
+            result = self._move(filas, columnas) #Se mueve lo que se seleccione
             if not result:
                 self.selected = None
                 self.seleccionar(filas, columnas)
@@ -47,20 +47,20 @@ class Juego:
             return True
         return False
 
-    def cambioTurno(self):
+    def cambioTurno(self): #Cambia el turnp
         self.movimientosValidos = {}
-        if self.turn == ROJO:
+        if self.turn == VIOLETA:
             self.turn = BLANCO
         else:
-            self.turn = ROJO
+            self.turn = VIOLETA
 
-    def actualizar(self):
+    def actualizar(self): #Actualiza la pantalla
         self.tablero.dibujar(self.ganar)
         self.dibujarMovimientos(self.movimientosValidos)
         pygame.display.update()
 
-    def ganador(self):
+    def ganador(self): #Elige ganador de la partida
         return self.tablero.ganador()
 
-    def reiniciar(self):
+    def reiniciar(self): #Se reinicia el juego
         self._init()
