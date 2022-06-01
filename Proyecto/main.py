@@ -1,6 +1,6 @@
 import pygame
-from constantes import ANCHO, ALTURA, TAMANIOCUADRADOTOTAL
-from juego import  Juego
+from Proyecto.constantes import ANCHO, ALTURA, TAMANIOCUADRADOTOTAL
+from Proyecto.juego import  Juego
 
 pygame.display.set_caption('Mundamitas')#Nombre del juego
 

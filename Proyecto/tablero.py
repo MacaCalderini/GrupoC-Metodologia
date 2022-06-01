@@ -1,5 +1,5 @@
 import pygame
-from piezas import Piezas
+from Proyecto.piezas import Piezas
 
 
 class Tablero: #Esta clase tablero sirve para manejar los movimientos de las piezas, las elimina, las pone en pantalla, etc

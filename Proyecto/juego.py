@@ -1,6 +1,6 @@
 import pygame
 from tablero import Tablero
-from constantes import VIOLETA, BLANCO, AZUL, TAMANIOCUADRADOTOTAL
+from Proyecto.constantes import VIOLETA, BLANCO, AZUL, TAMANIOCUADRADOTOTAL
 
 
 class Juego: #Aca se maneja el juego, la seleccion de piezas, a donde me puedo mover, de quien es el turno
