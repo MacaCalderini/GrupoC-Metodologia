@@ -19,7 +19,7 @@ def main():
     game = Juego(WIN)
 
     while run:
-        #comment
+
         clock.tick(FPS)
 
         if game.ganador() != None:
