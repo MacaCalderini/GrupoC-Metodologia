@@ -1,8 +1,8 @@
 import pygame
 from constantes import *
 
-# comment
 pygame.display.set_caption('Mundamitas')
+
 
 FPS = 60
 WIN = pygame.display.set_mode((ANCHO, ALTURA))
