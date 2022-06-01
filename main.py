@@ -6,7 +6,6 @@ pygame.display.set_caption('Mundamitas')#Nombre del juego
 
 pygame.display.set_caption('Mundamitas')#Nombre del juego
 
-
 FPS = 60 #Fotogramas por segundo, no se puso en las constantes porque se puede renderizar y darle forma al juego
 WIN = pygame.display.set_mode((ANCHO, ALTURA)) #Se elige el ancho y el alto
 
