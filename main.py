@@ -1,6 +1,7 @@
 import pygame
 from constantes import *
 
+# comment
 pygame.display.set_caption('Mundamitas')
 
 FPS = 60
@@ -37,5 +38,6 @@ def main():
         game.update()
 
     pygame.quit()
+
 
 main()
