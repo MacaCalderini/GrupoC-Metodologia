@@ -1,13 +1,19 @@
 import socket
 
+
 HOST = "127.0.0.1"
 PORT = 65123
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM)as s:
-    s.connect((HOST, PORT))
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
+    conn, addr = s.accept()
 
-    s.sendall(b"Hola Mundo")
+    with conn:
+        print(f"Conectando a {addr}: ")
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
 
-    data = s.recv(1024)
-
-print("Recibido,", repr(data))
+            conn.sendall(data)
