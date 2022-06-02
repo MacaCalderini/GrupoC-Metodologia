@@ -135,3 +135,20 @@ class Tablero:
             derecha += 1
 
         return movimientos
+
+    def eliminar(self, piezass):
+        for pieza in piezass:
+            self.tablero[pieza.filas][pieza.columnas] = 0
+            if pieza != 0:
+                if pieza != 0:
+                    if pieza.color == VIOLETA:
+                        self.violetaIzq -= 1
+                    else:
+                        self.blancoIzq -= 1
+
+    def ganador(self):
+        if self.violetaIzq <= 0:
+            return BLANCO
+        elif self.blancoIzq <= 0:
+            return VIOLETA
+        return None
