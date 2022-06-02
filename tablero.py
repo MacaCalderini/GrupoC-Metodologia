@@ -8,6 +8,7 @@ class Tablero:
         self.tablero = []
         self.violetaIzq = self.blancoIzq = 12
         self.violetaRey = self.blancoRey = 0
+        self.crearTablero()
 
     def crearCuadrado(self, ganar):
         ganar.fill(NEGRO)
@@ -15,8 +16,9 @@ class Tablero:
         for filas in range(FILAS):
             for columnas in range(filas % 2, COLUMNAS, 2):
                 pygame.draw.rect(ganar, VIOLETA, (
-                filas * TAMANIOCUADRADOTOTAL, columnas * TAMANIOCUADRADOTOTAL, TAMANIOCUADRADOTOTAL,
-                TAMANIOCUADRADOTOTAL))
+                    filas * TAMANIOCUADRADOTOTAL, columnas * TAMANIOCUADRADOTOTAL, TAMANIOCUADRADOTOTAL,
+                    TAMANIOCUADRADOTOTAL))
+
 
     def crearTablero(self):
         for filas in range(FILAS):
@@ -44,3 +46,14 @@ class Tablero:
                 self.blancoRey += 1
             else:
                 self.violetaRey += 1
+
+    def obtenerPiezas(self, filas, columnas):
+        return self.tablero[filas][columnas]
+
+    def dibujar(self, ganar):
+        self.crearCuadrado(ganar)
+        for filas in range(FILAS):
+            for columnas in range(COLUMNAS):
+                piezas = self.tablero[filas][columnas]
+                if piezas != 0:
+                    piezas.dibujo(ganar)
