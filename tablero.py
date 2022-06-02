@@ -57,3 +57,20 @@ class Tablero:
                 piezas = self.tablero[filas][columnas]
                 if piezas != 0:
                     piezas.dibujo(ganar)
+
+    def movimientosValidos(self, piezas):
+        movimientos = {}
+
+        izquierda = piezas.columnas - 1
+        derecha = piezas.columnas + 1
+
+        filas = piezas.filas
+
+        if piezas.color == VIOLETA or piezas.rey:
+            movimientos.update(self.atraIzq(filas - 1, max(filas - 3, -1), -1, piezas.color, izquierda))
+            movimientos.update(self.atraDer(filas - 1, max(filas - 3, -1), -1, piezas.color, derecha))
+
+        if piezas.color == BLANCO or piezas.king:
+            movimientos.update(self.atraIzq(filas + 1, min(filas + 3, FILAS), 1, piezas.color, izquierda))
+            movimientos.update(self.atraDer(filas + 1, min(filas + 3, FILAS), 1, piezas.color, derecha))
+            return movimientos
