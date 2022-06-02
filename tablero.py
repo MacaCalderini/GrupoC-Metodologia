@@ -74,3 +74,64 @@ class Tablero:
             movimientos.update(self.atraIzq(filas + 1, min(filas + 3, FILAS), 1, piezas.color, izquierda))
             movimientos.update(self.atraDer(filas + 1, min(filas + 3, FILAS), 1, piezas.color, derecha))
             return movimientos
+
+    def atraIzq(self, empezar, parar, paso, color, izquierda, skipped=[]):
+        movimientos = {}
+        ultimo = []
+        for i in range(empezar, parar, paso):
+            if izquierda < 0:
+                break
+
+            actual = self.tablero[i][izquierda]
+            if actual == 0:
+                if skipped and not ultimo:
+                    break
+                elif skipped:
+                    movimientos[(i, izquierda)] = ultimo + skipped
+                else:
+                    movimientos[(i, izquierda)] = ultimo
+                if ultimo:
+                    if paso == -1:
+                        filas = max(i - 3, 0)
+                    else:
+                        filas = min(i + 3, FILAS)
+                    movimientos.update(self.atraIzq(i + paso, filas, paso, color, izquierda - 1, skipped=ultimo))
+                    movimientos.update(self.atraDer(i + paso, filas, paso, color, izquierda + 1, skipped=ultimo))
+                break
+            elif actual.color == color:
+                break
+            else:
+                ultimo = [actual]
+            izquierda -= 1
+        return movimientos
+
+    def atraDer(self, empezar, parar, paso, color, derecha, skipped=[]):
+        movimientos = {}
+        ultimo = []
+        for i in range(empezar, parar, paso):
+            if derecha >= COLUMNAS:
+                break
+
+            actual = self.tablero[i][derecha]
+            if actual == 0:
+                if skipped and not ultimo:
+                    break
+                elif skipped:
+                    movimientos[(i, derecha)] = ultimo + skipped
+                else:
+                    movimientos[(i, derecha)] = ultimo
+                if ultimo:
+                    if paso == -1:
+                        filas = max(i - 3, 0)
+                    else:
+                        filas = min(i + 3, FILAS)
+                    movimientos.update(self.atraIzq(i + paso, filas, paso, color, derecha - 1, skipped=ultimo))
+                    movimientos.update(self.atraDer(i + paso, filas, paso, color, derecha + 1, skipped=ultimo))
+                break
+            elif actual.color == color:
+                break
+            else:
+                ultimo = [actual]
+            derecha += 1
+
+        return movimientos
