@@ -34,8 +34,8 @@ class Piezas:
 
         self.calcularPosicion()
 
-    def rey(self): #Metodo para transformar una ficha normal en rey, se hace cuando llega al final
-        self.rey = True
+    def make_king(self): #Metodo para transformar una ficha normal en rey, se hace cuando llega al final
+        self.king = True
 
     def dibujo(self, ganar): #Este metodo dibuja las fichas
         radio = TAMANIOCUADRADOTOTAL // 2 - self.RELLENO #Se calcula el radio de las fichas, para que nos sean mas grandes que los casilleros

@@ -33,14 +33,14 @@ class Tablero:
                 else:
                     self.tablero[fil].append(0)
 
-    def mover(self, pieza, fil, col):
-        self.tablero[pieza.fil][pieza.col], self.tablero[fil][col] = self.tablero[fil][col], self.tablero[pieza.fil][
-            pieza.col]
-        pieza.mover(fil, col)
+    def mover(self, piezas, fil, col):
+        self.tablero[piezas.fil][piezas.col], self.tablero[fil][col] = self.tablero[fil][col], self.tablero[piezas.fil][
+            piezas.col]
+        piezas.mover(fil, col)
 
         if fil == FILAS - 1 or fil == 0:
-            pieza.rey()
-            if pieza.color == BLANCO:
+            piezas.make_king()
+            if piezas.color == BLANCO:
                 self.BLANCORey += 1
             else:
                 self.VIOLETARey += 1
@@ -56,18 +56,18 @@ class Tablero:
                 if piezas != 0:
                     piezas.dibujo(ganar)
 
-    def movimientosValidos(self, piece):
+    def movimientosValidos(self, piezas):
         moves = {}
-        izq = piece.col - 1
-        der = piece.col + 1
-        fil = piece.fil
+        izq = piezas.col - 1
+        der = piezas.col + 1
+        fil = piezas.fil
 
-        if piece.color == VIOLETA or piece.king:
-            moves.update(self.atraIzq(fil - 1, max(fil - 3, -1), -1, piece.color, izq))
-            moves.update(self.atraDer(fil - 1, max(fil - 3, -1), -1, piece.color, der))
-        if piece.color == BLANCO or piece.king:
-            moves.update(self.atraIzq(fil + 1, min(fil + 3, FILAS), 1, piece.color, izq))
-            moves.update(self.atraDer(fil + 1, min(fil + 3, FILAS), 1, piece.color, der))
+        if piezas.color == VIOLETA or piezas.king:
+            moves.update(self.atraIzq(fil - 1, max(fil - 3, -1), -1, piezas.color, izq))
+            moves.update(self.atraDer(fil - 1, max(fil - 3, -1), -1, piezas.color, der))
+        if piezas.color == BLANCO or piezas.king:
+            moves.update(self.atraIzq(fil + 1, min(fil + 3, FILAS), 1, piezas.color, izq))
+            moves.update(self.atraDer(fil + 1, min(fil + 3, FILAS), 1, piezas.color, der))
 
         return moves
 
