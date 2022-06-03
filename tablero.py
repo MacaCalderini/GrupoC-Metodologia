@@ -13,66 +13,66 @@ class Tablero:
     def crearCuadrado(self, ganar):
         ganar.fill(NEGRO)
 
-        for filas in range(FILAS):
-            for columnas in range(filas % 2, COLUMNAS, 2):
+        for fil in range(FILAS):
+            for col in range(fil % 2, COLUMNAS, 2):
                 pygame.draw.rect(ganar, VIOLETA, (
-                    filas * TAMANIOCUADRADOTOTAL, columnas * TAMANIOCUADRADOTOTAL, TAMANIOCUADRADOTOTAL,
+                    fil * TAMANIOCUADRADOTOTAL, col * TAMANIOCUADRADOTOTAL, TAMANIOCUADRADOTOTAL,
                     TAMANIOCUADRADOTOTAL))
 
 
     def crearTablero(self):
-        for filas in range(FILAS):
+        for fil in range(FILAS):
             self.tablero.append([])
 
-            for columnas in range(COLUMNAS):
-                if columnas % 2 == ((filas + 1) % 2):
-                    if filas < 3:
-                        self.tablero[filas].append(Piezas(filas, columnas, BLANCO))
-                    elif filas > 4:
-                        self.tablero[filas].append(Piezas(filas, columnas, VIOLETA))
+            for col in range(COLUMNAS):
+                if col % 2 == ((fil + 1) % 2):
+                    if fil < 3:
+                        self.tablero[fil].append(Piezas(fil, col, BLANCO))
+                    elif fil > 4:
+                        self.tablero[fil].append(Piezas(fil, col, VIOLETA))
                     else:
-                        self.tablero[filas].append(0)
+                        self.tablero[fil].append(0)
                 else:
-                    self.tablero[filas].append(0)
+                    self.tablero[fil].append(0)
 
-    def moverFicha(self, pieza, filas, columnas):
-        self.tablero[pieza.filas][pieza.columnas], self.tablero[filas][columnas] = self.tablero[filas][columnas], \
-                                                                                   self.tablero[pieza.filas][
-                                                                                       pieza.columnas]
-        pieza.moverFicha(filas, columnas)
+    def moverFicha(self, pieza, fil, col):
+        self.tablero[pieza.fil][pieza.col], self.tablero[fil][col] = self.tablero[fil][col], \
+                                                                     self.tablero[pieza.fil][
+                                                                         pieza.col]
+        pieza.moverFicha(fil, col)
 
-        if filas == FILAS - 1 or filas == 0:
+        if fil == FILAS - 1 or fil == 0:
             if pieza.color == BLANCO:
                 self.blancoRey += 1
             else:
                 self.violetaRey += 1
 
-    def obtenerPiezas(self, filas, columnas):
-        return self.tablero[filas][columnas]
+    def obtenerPiezas(self, fil, col):
+        return self.tablero[fil][col]
 
     def dibujar(self, ganar):
         self.crearCuadrado(ganar)
-        for filas in range(FILAS):
-            for columnas in range(COLUMNAS):
-                piezas = self.tablero[filas][columnas]
+        for fil in range(FILAS):
+            for col in range(COLUMNAS):
+                piezas = self.tablero[fil][col]
                 if piezas != 0:
                     piezas.dibujo(ganar)
 
     def movimientosValidos(self, piezas):
         movimientos = {}
 
-        izquierda = piezas.columnas - 1
-        derecha = piezas.columnas + 1
+        izquierda = piezas.col - 1
+        derecha = piezas.col + 1
 
-        filas = piezas.filas
+        fil = piezas.fil
 
         if piezas.color == VIOLETA or piezas.rey:
-            movimientos.update(self.atraIzq(filas - 1, max(filas - 3, -1), -1, piezas.color, izquierda))
-            movimientos.update(self.atraDer(filas - 1, max(filas - 3, -1), -1, piezas.color, derecha))
+            movimientos.update(self.atraIzq(fil - 1, max(fil - 3, -1), -1, piezas.color, izquierda))
+            movimientos.update(self.atraDer(fil - 1, max(fil - 3, -1), -1, piezas.color, derecha))
 
         if piezas.color == BLANCO or piezas.king:
-            movimientos.update(self.atraIzq(filas + 1, min(filas + 3, FILAS), 1, piezas.color, izquierda))
-            movimientos.update(self.atraDer(filas + 1, min(filas + 3, FILAS), 1, piezas.color, derecha))
+            movimientos.update(self.atraIzq(fil + 1, min(fil + 3, FILAS), 1, piezas.color, izquierda))
+            movimientos.update(self.atraDer(fil + 1, min(fil + 3, FILAS), 1, piezas.color, derecha))
             return movimientos
 
     def atraIzq(self, empezar, parar, paso, color, izquierda, skipped=[]):
@@ -92,11 +92,11 @@ class Tablero:
                     movimientos[(i, izquierda)] = ultimo
                 if ultimo:
                     if paso == -1:
-                        filas = max(i - 3, 0)
+                        fil = max(i - 3, 0)
                     else:
-                        filas = min(i + 3, FILAS)
-                    movimientos.update(self.atraIzq(i + paso, filas, paso, color, izquierda - 1, skipped=ultimo))
-                    movimientos.update(self.atraDer(i + paso, filas, paso, color, izquierda + 1, skipped=ultimo))
+                        fil = min(i + 3, FILAS)
+                    movimientos.update(self.atraIzq(i + paso, fil, paso, color, izquierda - 1, skipped=ultimo))
+                    movimientos.update(self.atraDer(i + paso, fil, paso, color, izquierda + 1, skipped=ultimo))
                 break
             elif actual.color == color:
                 break
@@ -122,11 +122,11 @@ class Tablero:
                     movimientos[(i, derecha)] = ultimo
                 if ultimo:
                     if paso == -1:
-                        filas = max(i - 3, 0)
+                        fil = max(i - 3, 0)
                     else:
-                        filas = min(i + 3, FILAS)
-                    movimientos.update(self.atraIzq(i + paso, filas, paso, color, derecha - 1, skipped=ultimo))
-                    movimientos.update(self.atraDer(i + paso, filas, paso, color, derecha + 1, skipped=ultimo))
+                        fil = min(i + 3, FILAS)
+                    movimientos.update(self.atraIzq(i + paso, fil, paso, color, derecha - 1, skipped=ultimo))
+                    movimientos.update(self.atraDer(i + paso, fil, paso, color, derecha + 1, skipped=ultimo))
                 break
             elif actual.color == color:
                 break
@@ -138,7 +138,7 @@ class Tablero:
 
     def eliminar(self, piezass):
         for pieza in piezass:
-            self.tablero[pieza.filas][pieza.columnas] = 0
+            self.tablero[pieza.fil][pieza.col] = 0
             if pieza != 0:
                 if pieza != 0:
                     if pieza.color == VIOLETA:
