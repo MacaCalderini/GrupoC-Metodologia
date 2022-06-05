@@ -7,7 +7,7 @@ class Juego: #Aca se maneja el juego, la seleccion de piezas, a donde me puedo m
     def __init__(self, ganar):
         self._init() #Sirve para el metodo de reinicio
         self.ganar = ganar
-        
+
     def _init(self):
         self.selected = None
         self.tablero = Tablero()
@@ -16,34 +16,35 @@ class Juego: #Aca se maneja el juego, la seleccion de piezas, a donde me puedo m
 
     def dibujarMovimientos(self, movimientos):
         for mover in movimientos: #Dibuja movimientos posibles
-            filas, columnas = mover
-            pygame.draw.circle(self.win, AZUL, (columnas * TAMANIOCUADRADOTOTAL +
-                                                TAMANIOCUADRADOTOTAL//2, filas * TAMANIOCUADRADOTOTAL +
-                                                TAMANIOCUADRADOTOTAL//2), 15)
+            fil, col = mover
+            pygame.draw.circle(self.ganar, AZUL, (col * TAMANIOCUADRADOTOTAL +
+                                                  TAMANIOCUADRADOTOTAL//2, fil * TAMANIOCUADRADOTOTAL +
+                                                  TAMANIOCUADRADOTOTAL//2), 15)
 
-    def _mover(self, filas, columnas): #Movimiento de las fichas y se llama al metodo cambioTurno una vez realizado el movimiento
-        pieza = self.tablero.get_pieza(filas, columnas)
-        if self.selected and pieza == 0 and (filas, columnas) in self.movimientosValidos:
-            self.tablero.mover(self.selected, filas, columnas)
-            skipped = self.movimientosValidos[(filas, columnas)]
+    def _mover(self, fil, col): #Movimiento de las fichas y se llama al metodo cambioTurno una vez realizado el movimiento
+        pieza = self.tablero.obtenerPiezas(fil, col)
+        if self.selected and pieza == 0 and (fil, col) in self.movimientosValidos:
+            self.tablero.mover(self.selected, fil, col)
+            skipped = self.movimientosValidos[(fil, col)]
             if skipped:
                 self.tablero.eliminar(skipped)
             self.cambioTurno()
         else:
             return False
+
         return True
 
-    def seleccionar(self, filas, columnas):
+    def seleccionar(self, fil, col):
         if self.selected:
-            result = self._move(filas, columnas) #Se mueve lo que se seleccione
+            result = self._mover(fil, col) #Se mueve lo que se seleccione
             if not result:
                 self.selected = None
-                self.seleccionar(filas, columnas)
+                self.seleccionar(fil, col)
 
-        pieza = self.tablero.ObtPiezas(filas, columnas)
+        pieza = self.tablero.obtenerPiezas(fil, col)
         if pieza != 0 and pieza.color == self.turn:
             self.selected = pieza
-            self.movimientosValidos = self.tablero.obtMovimientosValidos(pieza)
+            self.movimientosValidos = self.tablero.movimientosValidos(pieza)
             return True
         return False
 
