@@ -1,5 +1,5 @@
 import pygame
-from Proyecto.constantes import TAMANIOCUADRADOTOTAL, GRIS, CORONA
+from constantes import TAMANIOCUADRADOTOTAL, GRIS, CORONA
 
 
 class Piezas:

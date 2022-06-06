@@ -1,4 +1,5 @@
 import pygame, sys
+from main import main
 
 pygame.init()
 
@@ -18,6 +19,7 @@ blue = (0, 0, 255)
 gray = (100, 100, 100)
 
 def play():
+    main()
     play()
 
 def fixture():
@@ -60,8 +62,8 @@ def menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                #f play_text_dim.collidepoint(event.pos):
-                    #play()
+                if play_text_dim.collidepoint(event.pos):
+                    play()
                 #if fixture_text_dim.collidepoint(pygame.mouse.get_pos()):
                     #fixture()
                 if quit_text_dim.collidepoint(event.pos): #Si se selecciona la opcion Quit el programa acaba
