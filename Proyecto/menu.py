@@ -20,8 +20,8 @@ gray = (100, 100, 100)
 def play():
     play()
 
-def settings():
-    settings()
+def fixture():
+    fixture()
 
 
 def menu():
@@ -39,9 +39,9 @@ def menu():
     play_text_dim = play_text.get_rect()
     play_text_dim.center = (WIDTH // 2, HEIGHT // 2 + 150)
 
-    settings_text = FONT.render("Settings", True, green)
-    settings_text_dim = settings_text.get_rect()
-    settings_text_dim.center = (WIDTH // 2, HEIGHT // 2 + 200)
+    fixture_text = FONT.render("Fixture", True, green)
+    fixture_text_dim = fixture_text.get_rect()
+    fixture_text_dim.center = (WIDTH // 2, HEIGHT // 2 + 200)
 
     # loop del menu
     run = True
@@ -52,7 +52,7 @@ def menu():
         SCREEN.blit(titulo_menu, titulo_menu_dim)
         SCREEN.blit(play_text, play_text_dim)
         SCREEN.blit(quit_text, quit_text_dim)
-        SCREEN.blit(settings_text, settings_text_dim)
+        SCREEN.blit(fixture_text, fixture_text_dim)
 
         #Se escuchan los eventos y se redirige a la funcion de la opcion seleccionada
         for event in pygame.event.get():
@@ -62,8 +62,8 @@ def menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #f play_text_dim.collidepoint(event.pos):
                     #play()
-                #if settings_text_dim.collidepoint(pygame.mouse.get_pos()):
-                    #settings()
+                #if fixture_text_dim.collidepoint(pygame.mouse.get_pos()):
+                    #fixture()
                 if quit_text_dim.collidepoint(event.pos): #Si se selecciona la opcion Quit el programa acaba
                     pygame.quit() #Se cierra la libreria
                     sys.exit()    #Se cierra el programa
