@@ -1,7 +1,7 @@
 import socket
 
 
-HOST = "127.0.0.1" #Ip del cliente, esta ip es el LocalHost(propio equipo)
+HOST = "localhost" #Ip del cliente, esta ip es el LocalHost(propio equipo)
 PORT = 65123 #Este es el puerto de escucha
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:#Se abre el socket para escuchar a las entradas

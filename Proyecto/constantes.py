@@ -11,7 +11,7 @@ CORONA = pygame.transform.scale(pygame.image.load("corona.png"), (44, 25))
 TAMANIOCUADRADOTOTAL = ANCHO//COLUMNAS
 
 #Colores RGB que se usaran
-VIOLETA = (38, 43, 26)
+VIOLETA = (113, 0, 126)
 
 BLANCO = (224, 176, 255)
 
@@ -19,5 +19,4 @@ NEGRO = (20, 20, 20)
 
 GRIS = (128, 128, 128)
 
-AZUL = (59, 131, 189)
-
+AZUL = (0, 21, 175)

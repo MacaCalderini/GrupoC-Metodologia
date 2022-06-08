@@ -11,4 +11,3 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM)as s: #Se especifica el de
     data = s.recv(1024) #Se especifica el tamaño de datos que se recibira, 1024 es un k de datos
 
 print("Recibido,", repr(data)) #Mostrara un mensaje que nos dira que recibio los datos
-
