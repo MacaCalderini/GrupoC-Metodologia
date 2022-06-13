@@ -19,6 +19,7 @@ def enviarAServer(network, player):
     except socket.error as e:
         print(e)
 
+
 def main():
     WIDTH, HEIGHT = 720, 640
     BOARDWIDTH, BOARDHEIGHT = 496, 496
