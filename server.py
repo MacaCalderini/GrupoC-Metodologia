@@ -1,20 +1,133 @@
+import sys
 import socket
+import pickle
+import _thread
+from jugador import *
+from piezatablero import *
 
+SWIDTH, SHEIGHT = 720, 640
+WIDTH, HEIGHT = 496, 496
 
-HOST = "127.0.0.1" #Ip del cliente, esta ip es el LocalHost(propio equipo)
-PORT = 65123 #Este es el puerto de escucha
+def actualizarInfoJugador(server, player, uplayer):
+    player.piezaBloqueada = uplayer.piezaBloqueada
+    player.movPosiblesBloqueados = uplayer.movPosiblesBloqueados
+    player.anim_move_ri = uplayer.anim_move_ri
+    player.anim_move_ri_built = uplayer.anim_move_ri_built
+    if server.game_winner is not None:
+        player.revancha = uplayer.revancha
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:#Se abre el socket para escuchar a las entradas
-                                                            #Se especifica el detalle de IP y el de protocolo, AF_INET es Ipv4, SOCK_STREAM es el protocolo TCP
-    s.bind((HOST, PORT)) #Se asocia el socket, se especifica el HOST y el PUERTO
-    s.listen() #Se pone el socket en modo escucha
-    conn, addr = s.accept() #Se acepta conexiones entrantes, retorna el socket de entrada y la direccion
+class Server:
+    NUM_PLAYERS = 2
+    ADDR = "localhost"
+    PORT = 5555
 
-    with conn:
-        print(f"Conectando a {addr}: ") #Se muestra un mensaje para saber a donde se esta conectando
-        while True: #Recibira los datos
-            data = conn.recv(1024) #Se especifica el tamaño de datos que se recibira, 1024 es un k de datos
-            if not data: #Si no llega nada, se termina
+    def __init__(self):
+        self.tablero = self.crearNuevoTablero()
+        self.game_winner = None
+        self.players = self.crearJugadores()
+
+        self.id_locked = [False, False]
+
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            self.sock.bind((self.ADDR, self.PORT))
+        except socket.error as e:
+            print(e)
+
+    def crearNuevoTablero(self):
+        return Tablero(SWIDTH, SHEIGHT, WIDTH, HEIGHT)
+
+    def crearJugadores(self):
+        return [Jugador(True), Jugador(False)]
+
+    def recibirEstadoJuego(self, conn):
+        data = conn.recv(4096)
+        if not data:
+            return None
+        state = pickle.loads(data)
+        return state
+
+    def compartirEstadoJuego(self, conn, state):
+        encoded = pickle.dumps(state)
+        conn.sendall(encoded)
+
+    def listen(self):
+        self.sock.listen(self.NUM_PLAYERS)
+        id = None
+        while True:
+            conn, addr = self.sock.accept()
+            if not self.id_locked[0]:
+                self.id_locked[0] = True
+                id = 0
+            elif not self.id_locked[1]:
+                self.id_locked[1] = True
+                id = 1
+            self.players[id].connected = True
+            _thread.start_new_thread(self.client_thread, (conn, id))
+
+    def client_thread(self, conn, id):
+        start_info = {
+            'yo': self.players[id],
+            'otro': self.players[0] if id == 1 else self.players[1],
+            'tablero': self.tablero if id == 0 else self.tablero.reversa()
+        }
+        self.compartirEstadoJuego(conn, start_info)
+        while True:
+            try:
+                player_self = self.recibirEstadoJuego(conn)
+                if player_self:
+                    actualizarInfoJugador(self, self.players[id], player_self)
+                    if isinstance(player_self.piezasMovidas, Pieza) and player_self.esTurno:
+                        if id == 0:
+                            self.tablero.moverPieza(player_self.piezasMovidas.pos, player_self.posMovida)
+                            for pieza in player_self.piezaComida:
+                                self.tablero.piezaComida(pieza.pos)
+                            self.players[0].esTurno = False
+                            self.players[1].esTurno = True
+                            self.players[0].piezasMovidas = None
+                            self.players[0].piezaComida = []
+                            self.players[0].posMovida = None
+
+                        elif id == 1:
+                            self.tablero.moverPieza(player_self.piezasMovidas.pos, player_self.posMovida, comp=True)
+                            for pieza in player_self.piezaComida:
+                                self.tablero.piezaComida(pieza.pos, comp=True)
+                            self.players[0].esTurno = True
+                            self.players[1].esTurno = False
+                            self.players[1].piezasMovidas\
+                                = None
+                            self.players[1].piezaComida = []
+                            self.players[1].posMovida = None
+
+                    actualizarRey(self.tablero)
+
+                    self.game_winner = revisarGanador(self.tablero)
+
+                    if self.game_winner is not None and self.players[0].revancha and self.players[1].revancha:
+                        self.players = self.crearJugadores()
+                        self.players[0].connected = True
+                        self.players[1].connected = True
+                        self.tablero = self.crearNuevoTablero()
+                        self.game_winner = None
+
+                    game_state = {
+                        'yo': self.players[id],
+                        'otro': self.players[0] if id == 1 else self.players[1],
+                        'tablero': self.tablero if id == 0 else self.tablero.reversa(),
+                        'ganador': self.game_winner
+                    }
+                    self.compartirEstadoJuego(conn, game_state)
+
+                else:
+                    print(f"Conexion con = {id} terminada.")
+                    self.players[id].connected = False
+                    self.id_locked[id] = False
+                    break
+            except:
                 break
 
-            conn.sendall(data) #Se retorna lo que se envio
+if __name__ == "__main__":
+    server = Server()
+    server.listen()
+
+
