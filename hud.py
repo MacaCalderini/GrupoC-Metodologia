@@ -1,5 +1,5 @@
 import pygame
-#
+
 class Hud:
     XOFF, YOFF = 0, 0 #Intentar cambiar por constantes
 
