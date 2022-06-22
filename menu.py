@@ -5,7 +5,7 @@ import cliente as cl
 
 pygame.init()
 pygame.display.set_caption('Mundamitas')#Nombre del juego
-
+#coment
 # constantes
 WIDTH = 800
 HEIGHT = 800
