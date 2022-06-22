@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from piezatablero import *
 from jugador import *
 from server import Server
@@ -41,7 +41,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                break
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 posMouse = pygame.mouse.get_pos()
                 act_pos = obtPosicionMouse(tablero_rect, posMouse)
