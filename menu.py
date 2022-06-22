@@ -1,7 +1,6 @@
 import pygame, sys
 from constantes import *
 from server import Server
-import cliente as cl
 
 pygame.init()
 pygame.display.set_caption('Mundamitas')#Nombre del juego
@@ -62,7 +61,7 @@ def menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play_text_dim.collidepoint(event.pos):
-                    cl.main()
+                    import cliente
                 if fixture_text_dim.collidepoint(event.pos):
                     import creaciontxt
                 if quit_text_dim.collidepoint(event.pos): #Si se selecciona la opcion Quit el programa acaba
