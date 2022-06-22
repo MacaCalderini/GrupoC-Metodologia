@@ -17,7 +17,7 @@ NUMEROPIEZAS = 8
 CORONABLANCA = pygame.transform.scale(pygame.image.load("blancoRey.png"), (44, 25))
 CORONANEGRA = pygame.transform.scale(pygame.image.load("negroRey.png"), (44, 25))
 
-FRAME = pygame.image.load('frame.png')
+#FRAME = pygame.image.load('frame.png')
 
 
 PIEZANEGRA = pygame.transform.scale(pygame.image.load("negro.png"), (44, 25))
