@@ -2,22 +2,28 @@ import pygame
 
 #Constantes
 FILAS, COLUMNAS = 8, 8
-ANCHO, ALTURA = 800, 800
+YINICIAL = 0
+XINICIAL = 0
 
-#Se carga la imagen de la corona, por defecto la imagen es grande, entonces se le da un tamaño para que entre en las piezas
-CORONA = pygame.transform.scale(pygame.image.load("corona.png"), (44, 25))
 
-#Se le da un tamaño al tablero
-TAMANIOCUADRADOTOTAL = ANCHO//COLUMNAS
+COLORFONDO = (53, 150, 80)
+NUMJUGADORES = 2
 
-#Colores RGB que se usaran
-VIOLETA = (38, 43, 26)
+TAMANIOANCHO, TAMANIOALTO = 496, 496
+ANCHO, ALTO = 720, 640
+NUMEROPIEZAS = 8
 
-BLANCO = (224, 176, 255)
+#Se carga las imagenes de las piezasm, del tablero y de las piezas con corona, por defecto la imagen es grande, entonces se le da un tamaño para que entre en las piezas
+CORONABLANCA = pygame.transform.scale(pygame.image.load("blancoRey.png"), (44, 25))
+CORONANEGRA = pygame.transform.scale(pygame.image.load("negroRey.png"), (44, 25))
 
-NEGRO = (20, 20, 20)
+#FRAME = pygame.image.load('frame.png')
 
-GRIS = (128, 128, 128)
 
-AZUL = (59, 131, 189)
+PIEZANEGRA = pygame.transform.scale(pygame.image.load("negro.png"), (44, 25))
+PIEZABLANCA = pygame.transform.scale(pygame.image.load("blanco.png"), (44, 25))
+
+TABLERO = pygame.image.load("tablero.png")
+
+
 
